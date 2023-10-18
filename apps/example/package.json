@@ -1,0 +1,43 @@
+{
+    "name": "example",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "dubhe": "workspace:*",
+        "@chakra-ui/react": "2.4.1",
+        "@chakra-ui/theme-tools": "^2.0.16",
+        "antd": "^5.1.1",
+        "react-icons": "^4.6.0",
+        "react-query": "^3.39.2",
+        "react-router-dom": "^6.3.0",
+        "zustand": "^4.1.2",
+        "chroma-js": "^2.4.2",
+        "dayjs": "^1.11.9",
+        "hash.js": "^1.1.7",
+        "lodash": "^4.17.21",
+        "react-use": "^17.4.0"
+    },
+    "devDependencies": {
+        "@dubhe/eslint": "workspace:*",
+        "tsconfig": "workspace:*",
+        "@types/react": "^18.2.15",
+        "@types/react-dom": "^18.2.7",
+        "@typescript-eslint/eslint-plugin": "^6.0.0",
+        "@typescript-eslint/parser": "^6.0.0",
+        "@vitejs/plugin-react": "^4.0.3",
+        "eslint": "^8.45.0",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-plugin-react-refresh": "^0.4.3",
+        "typescript": "^5.0.2",
+        "vite": "^4.4.5"
+    }
+}
