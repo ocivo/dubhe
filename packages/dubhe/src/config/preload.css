@@ -1,0 +1,41 @@
+
+/* To be compatible antd and chakra-ui */
+:root {
+    --chakra-zIndices-auto: auto!important;
+    --chakra-zIndices-base: 0!important;
+    --chakra-zIndices-docked: 10!important;
+    --chakra-zIndices-dropdown: 100!important;
+    --chakra-zIndices-sticky: 110!important;
+    --chakra-zIndices-banner: 120!important;
+    --chakra-zIndices-overlay: 130!important;
+    --chakra-zIndices-modal: 140!important;
+    --chakra-zIndices-popover: 150!important;
+    --chakra-zIndices-skipLink: 160!important;
+    --chakra-zIndices-toast: 170!important;
+    --chakra-zIndices-tooltip: 180!important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar-track-piece {
+    background-color: #f8f8f8;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #dddddd;
+    background-clip: padding-box;
+    min-height: 28px;
+    border-radius: 3px;
+
+    &:hover {
+        background-color: #bbbbbb;
+        border-radius: 3px;
+        cursor: pointer !important;
+    }
+}
