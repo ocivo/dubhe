@@ -26,7 +26,7 @@ import { TableFetchProvider, useTableFetchContext } from './table-fetch'
 
 type InjectSlot = (defaults: JSX.Element[]) => JSX.Element[]
 
-export interface ITableActionHooks {
+export interface TableActionHooks {
     // contextValue: Record (add, update, remove) | Id[] (removeBatch)
     post?: (contextData: any, store: ITableState) => Promise<boolean>
     pre?: (contextData: any, store: ITableState) => Promise<boolean>
@@ -34,11 +34,11 @@ export interface ITableActionHooks {
 
 export type DefaultActionType = 'remove' | 'add' | 'update'
 
-export interface ITableTemplateProps {
+export interface TableTemplateProps {
     fields: Field[]
     api: TypeUtil.MakeRequired<Partial<CommonAPI>, 'query'>
     actions?: ((defaults: JSX.Element[]) => (...params: Parameters<TableCellRender>) => JSX.Element[]) | null
-    actionHooks?: Partial<Record<DefaultActionType, ITableActionHooks>>
+    actionHooks?: Partial<Record<DefaultActionType, TableActionHooks>>
     slots?: {
         search?: InjectSlot
         header?: InjectSlot
@@ -52,7 +52,7 @@ function withDefault(defaults: JSX.Element[], fn?: (t: JSX.Element[]) => JSX.Ele
     return fn ? fn(ReactUtil.renderElementsWithKey(defaults)) : defaults
 }
 
-function withHooksAction(action: TypeUtil.AsyncFunction, store: ITableState, hooks?: ITableActionHooks) {
+function withHooksAction(action: TypeUtil.AsyncFunction, store: ITableState, hooks?: TableActionHooks) {
     return async (args: any) => {
         if (hooks?.pre) {
             const result = await hooks.pre(args, store)
@@ -65,7 +65,8 @@ function withHooksAction(action: TypeUtil.AsyncFunction, store: ITableState, hoo
     }
 }
 
-export const TableTemplateBody = (props: ITableTemplateProps) => {
+// TODO 提取所有slots包括updateForm作为组件的一部分
+export const TableTemplateBody = (props: TableTemplateProps) => {
     const { fields, slots = {}, actions, actionHooks, tableProps, formProps, api } = props
     const { size, bordered } = useGlobalTableContext((s) => s)
     const { fetchData, fetchDataLater } = useTableFetchContext()
@@ -76,7 +77,7 @@ export const TableTemplateBody = (props: ITableTemplateProps) => {
     // update form control
     const updateFormRef = useRef<MutationFormRef>(null)
     // inject slots
-    const tableSlots: Record<keyof Exclude<ITableTemplateProps['slots'], undefined>, JSX.Element[]> = {
+    const tableSlots: Record<keyof Exclude<TableTemplateProps['slots'], undefined>, JSX.Element[]> = {
         search: withDefault(
             [
                 <TableSearch
@@ -138,7 +139,7 @@ export const TableTemplateBody = (props: ITableTemplateProps) => {
             const defaultActions = [
                 <Button
                     colorScheme={'blue'}
-                    variant="outline"
+                    variant={"link"}
                     onClick={() => {
                         setActiveRow(record)
                         updateFormRef.current?.onOpen()
@@ -147,7 +148,7 @@ export const TableTemplateBody = (props: ITableTemplateProps) => {
                 </Button>,
                 <Button
                     colorScheme={'red'}
-                    variant={'outline'}
+                    variant={"link"}
                     onClick={() => {
                         withHooksAction(
                             async (record) => {
@@ -191,7 +192,7 @@ export const TableTemplateBody = (props: ITableTemplateProps) => {
     }, [])
     return (
         // TODO 解耦 template 和 业务逻辑
-        <Stack>
+        <Stack w="full">
             <Box>{ReactUtil.renderElementsWithKey(tableSlots.search)}</Box>
             <Box>
                 <HStack>{ReactUtil.renderElementsWithKey(tableSlots.header)}</HStack>
@@ -212,7 +213,7 @@ export const TableTemplateBody = (props: ITableTemplateProps) => {
                         x: 'max-content',
                     }}
                     size={size}
-                    bordered={bordered}
+                    // bordered={bordered}
                     {...tableProps}
                     onChange={(pagination, filters, sorter, extra) => {
                         const sorts: Sorter[] = (Array.isArray(sorter) ? sorter : [sorter])
@@ -248,7 +249,7 @@ export const TableTemplateBody = (props: ITableTemplateProps) => {
     1.TableProvider + TableTemplateInternal
     2.TableProvider + TableFetchProvider + TableTemplateBody
  */
-export const TableTemplateInternal = (props: ITableTemplateProps) => {
+export const TableTemplateInternal = (props: TableTemplateProps) => {
     return (
         <TableFetchProvider api={props.api}>
             <TableTemplateBody {...props}></TableTemplateBody>
@@ -256,7 +257,7 @@ export const TableTemplateInternal = (props: ITableTemplateProps) => {
     )
 }
 
-export const TableTemplate = (props: ITableTemplateProps & { defaultState?: Partial<ITableProps> }) => {
+export const TableTemplate = (props: TableTemplateProps & { defaultState?: Partial<ITableProps> }) => {
     const { defaultState, ...rest } = props
     return (
         <TableProvider {...defaultState}>

@@ -1,5 +1,5 @@
 export * from "./request/axios"
-export * from "./chart/echarts/EEChart"
+export * from "./chart/echarts/EChart"
 export * from "./form/antd/AntdForm"
 export * from "./modal/antd/useAntdModal"
 export * from "./modal/chakra/useChakraModal"

@@ -10,7 +10,7 @@ export interface RemoveActionProps {
 export const useRemoveAction = (props: RemoveActionProps) => {
     const { remove, removeBatch, onOk, onError } = props
 
-    const removeAction = useCallback((id: React.Key | React.Key[]) => {
+    const removeAction = (id: React.Key | React.Key[]) => {
         const isBatch = Array.isArray(id)
         if (isBatch && id.length == 0) {
             message.warning('请至少选择一项')
@@ -27,7 +27,7 @@ export const useRemoveAction = (props: RemoveActionProps) => {
                 }
             },
         })
-    }, [])
+    }
 
     return removeAction
 }

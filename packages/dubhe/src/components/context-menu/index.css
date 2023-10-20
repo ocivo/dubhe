@@ -1,8 +1,18 @@
-@keyframes slideIn {
+/* @keyframes slideIn {
     0% { transform: scaleY(0.5); opacity: 0; transform-origin: 0% 0%; }
     100% { transform: scaleY(1); opacity: 1; transform-origin: 0% 0%; }
+} */
+@keyframes fadeInOut {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .my-contextmenu {
-    animation: slideIn ease-in-out .2s;
+    animation: fadeInOut ease-in-out 1.2s;
+    background-color: red;
+    border: 4px solid red;
 }

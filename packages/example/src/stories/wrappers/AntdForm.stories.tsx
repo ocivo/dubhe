@@ -7,7 +7,6 @@ import { Button, Divider, Input } from 'antd'
 import _ from 'lodash'
 import { useRef } from 'react'
 import { useForm } from 'antd/es/form/Form'
-import { S } from '@storybook/preview-api/dist/StoryStore-9da974c1'
 
 const meta: Meta<typeof AntdForm> = {
     component: AntdForm,
@@ -174,29 +173,31 @@ export const Dependent: Story = {
                 required: false,
                 affectedBy: (values) => {
                     if (!values) return {}
-                    if (values['B'] > 5 && values["B"] <= 10) {
+                    if (values['B'] > 5 && values['B'] <= 10) {
                         return {
                             field: { required: true },
                         }
                     }
-                    if (values["B"] > 10) {
+                    if (values['B'] > 10) {
                         return {
-                            field: {required: true},
-                            value: "B is bigger than 10"
+                            field: { required: true },
+                            value: 'B is bigger than 10',
                         }
                     }
-                    return {}
+                    return {
+                        field: { required: false },
+                    }
                 },
             },
             {
-                label: "字段B",
-                name: "B",
-                type: "number",
+                label: '字段B',
+                name: 'B',
+                type: 'number',
                 fieldProps: {
                     min: 1,
-                    max: 20
-                }
-            }
+                    max: 20,
+                },
+            },
         ],
     },
 }

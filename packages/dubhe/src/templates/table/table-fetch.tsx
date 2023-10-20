@@ -1,7 +1,7 @@
 import useRequest from '@ahooksjs/use-request'
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { useTableContext } from './table-store'
-import { ITableTemplateProps } from './TableTemplate'
+import { TableTemplateProps } from './TableTemplate'
 import { TypeUtil } from '../../utils'
 import { CommonAPI } from '../../wrappers/request/axios/api'
 import { QueryRequestParams } from '../../types'
@@ -16,7 +16,7 @@ export const TableFetchContext = createContext<ITableFetchProps>({} as any)
 
 export const useTableFetchContext = () => useContext(TableFetchContext)
 
-export const TableFetchProvider = (props: React.PropsWithChildren<Pick<ITableTemplateProps, 'api'>>) => {
+export const TableFetchProvider = (props: React.PropsWithChildren<Pick<TableTemplateProps, 'api'>>) => {
     const { api } = props
     const [fetchCount, setFetchCount] = useState(0)
     const [setData, setTotal, pageSize, pageNum, total, setPage, searchParams, sort] = useTableContext((state) => [

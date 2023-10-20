@@ -19,7 +19,7 @@ export interface EChartProps {
     easyOption?: EChartEasyOption
 }
 
-const DEFAULT_EASY_OPTION: EChartEasyOption = {
+export const DEFAULT_EASY_OPTION: EChartEasyOption = {
     padding: '10%',
     legend: false,
     colors: ["#36A2EB", "#FF6384", "#4BC0C0", "#FF9F40", "#9966FF", "#FFCD56", "#C9CBCF"], // Ref: chart.js
